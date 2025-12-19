@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Focus</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2563eb" />
+  <link rel="apple-touch-icon" href="icon.png" />
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont;
+      background: #f8fafc;
+      padding: 20px;
+    }
+    h1 { color: #2563eb; }
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button {
+      margin-top: 12px;
+      padding: 12px;
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      font-size: 16px;
+    }
+    .saved {
+      margin-top: 20px;
+      color: #16a34a;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🎯 Daily Focus</h1>
+  <p>Việc quan trọng nhất hôm nay của bạn là gì?</p>
+
+  <input id="focusInput" placeholder="Nhập việc cần tập trung..." />
+  <button onclick="saveFocus()">Lưu</button>
+
+  <div class="saved" id="savedText"></div>
+
+  <script>
+    const input = document.getElementById("focusInput");
+    const savedText = document.getElementById("savedText");
+
+    const saved = localStorage.getItem("dailyFocus");
+    if (saved) {
+      savedText.textContent = "Hôm nay bạn tập trung vào: " + saved;
+    }
+
+    function saveFocus() {
+      localStorage.setItem("dailyFocus", input.value);
+      savedText.textContent = "Hôm nay bạn tập trung vào: " + input.value;
+    }
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
+</body>
+</html>
